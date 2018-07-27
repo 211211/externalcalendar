@@ -319,4 +319,5 @@ ASALocalRun/
 # MSBuild Binary and Structured Log
 *.binlog
 
-SDS.Cube.Portal/SDS.Cube.Portal.Web/Logs/
+
+TennisLocker/TennisLocker.Portal/ClientApp/dist/

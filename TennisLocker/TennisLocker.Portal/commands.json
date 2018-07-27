@@ -1,0 +1,14 @@
+{
+  "commands": {
+    "nswag": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c nswag-runnrer.cmd"
+    },
+    "ngbuild": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c npm run ng build"
+    }
+  }
+}

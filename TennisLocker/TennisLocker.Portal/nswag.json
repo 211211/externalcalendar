@@ -1,0 +1,48 @@
+{
+  "runtime": "WinX64",
+  "swaggerGenerator": {
+    "fromSwagger": {
+      "json": "",
+      "url": "http://localhost:50197/swagger.json",
+      "output": null
+    }
+  },
+  "codeGenerators": {
+    "swaggerToTypeScriptClient": {
+      "className": "{controller}Service",
+      "moduleName": "",
+      "namespace": "",
+      "typeScriptVersion": 2.7,
+      "template": "Angular",
+      "promiseType": "Promise",
+      "httpClass": "Http",
+      "injectionTokenType": "InjectionToken",
+      "dateTimeType": "Date",
+      "nullValue": "Undefined",
+      "generateClientClasses": true,
+      "generateClientInterfaces": true,
+      "generateOptionalParameters": false,
+      "wrapDtoExceptions": false,
+      "wrapResponses": false,
+      "generateResponseClasses": true,
+      "responseClass": "SwaggerResponse",
+      "useTransformOptionsMethod": false,
+      "useTransformResultMethod": false,
+      "generateDtoTypes": true,
+      "operationGenerationMode": "MultipleClientsFromPathSegments",
+      "markOptionalProperties": true,
+      "generateCloneMethod": false,
+      "typeStyle": "Interface",
+      "generateDefaultValues": true,
+      "excludedTypeNames": [],
+      "handleReferences": true,
+      "generateConstructorInterface": false,
+      "convertConstructorInterfaceData": false,
+      "importRequiredTypes": true,
+      "useGetBaseUrlMethod": false,
+      "baseUrlTokenName": "API_BASE_URL",
+      "queryNullValue": "",
+      "output": "src/services/generated-services.ts"
+    }
+  }
+}
