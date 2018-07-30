@@ -1,0 +1,428 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "TennisLocker.Api"
+  },
+  "host" : "sportsanalyticsinc-demo.azurewebsites.net",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/accounts/loggedInUser" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Get Information about the logged in user",
+        "operationId" : "Accounts_LoggedInUser",
+        "consumes" : [ ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/UserReturnModel"
+            }
+          },
+          "400" : {
+            "description" : "BadRequest"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "NotFound"
+          }
+        }
+      }
+    },
+    "/accounts/changePassword" : {
+      "post" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Change the password of the logged in user.",
+        "operationId" : "Accounts_ChangePassword",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ChangePasswordModel"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "BadRequest"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "NotFound"
+          }
+        }
+      }
+    },
+    "/accounts/forgetPassword" : {
+      "post" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Forget password",
+        "operationId" : "Accounts_ForgotPassword",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "model",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ForgetPasswordBindingModel"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/resetPassword" : {
+      "post" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Reset password",
+        "operationId" : "Accounts_ResetPassword",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "model",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ResetPasswordBindingModel"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/facility/{facilityId}" : {
+      "get" : {
+        "tags" : [ "Facility" ],
+        "summary" : "Get a facility by id.",
+        "operationId" : "Facility_Get",
+        "consumes" : [ ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ {
+          "name" : "facilityId",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/FacilityViewModel"
+            }
+          },
+          "500" : {
+            "description" : "InternalServerError"
+          }
+        }
+      }
+    },
+    "/facility/all" : {
+      "get" : {
+        "tags" : [ "Facility" ],
+        "summary" : "Get a facility by id.",
+        "operationId" : "Facility_GetAll",
+        "consumes" : [ ],
+        "produces" : [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/FacilityViewModel"
+              }
+            }
+          },
+          "500" : {
+            "description" : "InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "UserReturnModel" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "roles" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "firstTimeUser" : {
+          "type" : "boolean"
+        },
+        "playerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "coachId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "facilityId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "parentId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "firstName" : "firstName",
+        "lastName" : "lastName",
+        "facilityId" : 5,
+        "level" : 0,
+        "roles" : [ "roles", "roles" ],
+        "firstTimeUser" : true,
+        "userId" : "userId",
+        "coachId" : 1,
+        "email" : "email",
+        "parentId" : 5,
+        "playerId" : 6
+      }
+    },
+    "ChangePasswordModel" : {
+      "type" : "object",
+      "required" : [ "confirmPassword", "newPassword", "oldPassword" ],
+      "properties" : {
+        "oldPassword" : {
+          "type" : "string"
+        },
+        "newPassword" : {
+          "type" : "string",
+          "minLength" : 6,
+          "maxLength" : 100
+        },
+        "confirmPassword" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "oldPassword" : "oldPassword",
+        "newPassword" : "newPassword",
+        "confirmPassword" : "confirmPassword"
+      }
+    },
+    "ChangeEmailModel" : {
+      "type" : "object",
+      "required" : [ "newEmail", "oldEmail", "userId" ],
+      "properties" : {
+        "oldEmail" : {
+          "type" : "string"
+        },
+        "newEmail" : {
+          "type" : "string"
+        },
+        "userId" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "oldEmail" : "oldEmail",
+        "newEmail" : "newEmail",
+        "userId" : "userId"
+      }
+    },
+    "ForgetPasswordBindingModel" : {
+      "type" : "object",
+      "required" : [ "email" ],
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        },
+        "deviceType" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "deviceType" : "deviceType",
+        "email" : "email"
+      }
+    },
+    "ResetPasswordBindingModel" : {
+      "type" : "object",
+      "required" : [ "email", "password" ],
+      "properties" : {
+        "email" : {
+          "type" : "string",
+          "description" : "Gets or sets the email address."
+        },
+        "password" : {
+          "type" : "string",
+          "description" : "Gets or sets the password.",
+          "minLength" : 6,
+          "maxLength" : 100
+        },
+        "confirmPassword" : {
+          "type" : "string",
+          "description" : "Gets or sets the confirm password."
+        },
+        "code" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "password" : "password",
+        "code" : "code",
+        "confirmPassword" : "confirmPassword",
+        "email" : "email"
+      }
+    },
+    "FacilityViewModel" : {
+      "type" : "object",
+      "properties" : {
+        "facilityId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "address1" : {
+          "type" : "string"
+        },
+        "address2" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "state_Province" : {
+          "type" : "string"
+        },
+        "zipCode_MailCode" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "facilityTypeId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numOfOutdoorHardCourts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numOfIndoorHardCourts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numOfClayCourts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numOfGrassCourts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ustaSectionId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "facilityName" : {
+          "type" : "string"
+        },
+        "ustaSectionName" : {
+          "type" : "string"
+        },
+        "facilityTypeDescription" : {
+          "type" : "string"
+        },
+        "numberOfGroups" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "coachCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "facilitySubscriptionPlanName" : {
+          "type" : "string"
+        },
+        "eavalScoreTypeId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "example" : {
+        "facilityId" : 0,
+        "ustaSectionName" : "ustaSectionName",
+        "address2" : "address2",
+        "city" : "city",
+        "numOfClayCourts" : 5,
+        "address1" : "address1",
+        "numOfGrassCourts" : 2,
+        "eavalScoreTypeId" : 7,
+        "facilityTypeDescription" : "facilityTypeDescription",
+        "femaleCount" : 2,
+        "state_Province" : "state_Province",
+        "numOfIndoorHardCourts" : 5,
+        "numOfOutdoorHardCourts" : 1,
+        "zipCode_MailCode" : "zipCode_MailCode",
+        "ustaSectionId" : 7,
+        "phone" : "phone",
+        "maleCount" : 3,
+        "facilityTypeId" : 6,
+        "numberOfGroups" : 9,
+        "facilityName" : "facilityName",
+        "coachCount" : 4,
+        "facilitySubscriptionPlanName" : "facilitySubscriptionPlanName"
+      }
+    }
+  }
+}

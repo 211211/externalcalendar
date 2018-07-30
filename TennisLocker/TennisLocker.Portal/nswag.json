@@ -3,7 +3,7 @@
   "swaggerGenerator": {
     "fromSwagger": {
       "json": "",
-      "url": "http://localhost:50197/swagger.json",
+      "url": "./swagger.json",
       "output": null
     }
   },
@@ -15,7 +15,7 @@
       "typeScriptVersion": 2.7,
       "template": "Angular",
       "promiseType": "Promise",
-      "httpClass": "Http",
+      "httpClass": "HttpClient",
       "injectionTokenType": "InjectionToken",
       "dateTimeType": "Date",
       "nullValue": "Undefined",

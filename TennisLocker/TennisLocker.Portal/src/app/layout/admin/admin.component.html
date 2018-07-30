@@ -290,7 +290,7 @@
         >
           <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config" [ngClass]="perfectDisable">
             <div class="pcoded-inner-navbar main-menu" appAccordion>
-              <div class="">
+              <!--<div class="">
                 <div class="main-menu-header">
                   <img class="img-menu-user img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
                   <div class="user-details">
@@ -308,7 +308,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div>-->
 
               <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
                 <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}</div>

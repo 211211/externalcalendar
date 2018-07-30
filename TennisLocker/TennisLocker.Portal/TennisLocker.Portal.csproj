@@ -21,6 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\Injectors\token.interceptor .ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="src\Injectors\token.interceptor .ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@ import {ChartModule} from 'angular2-chartjs';
 /*import {SimpleNotificationsModule} from 'angular2-notifications';*/
 import {AgmCoreModule} from '@agm/core';
 import {DefaultComponent} from './default.component';
+ 
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import {DefaultComponent} from './default.component';
   declarations: [
     DefaultComponent
   ],
-  bootstrap: [DefaultComponent]
+    bootstrap: [DefaultComponent] 
 })
 export class DefaultModule { }

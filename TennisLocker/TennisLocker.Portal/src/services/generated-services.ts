@@ -16,7 +16,7 @@ import 'rxjs/add/operator/catch';
 
 import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
-import { Http, Headers, ResponseContentType, Response } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpResponseBase, HttpErrorResponse } from '@angular/common/http';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -44,11 +44,11 @@ export interface IAccountsService {
 
 @Injectable()
 export class AccountsService implements IAccountsService {
-    private http: Http;
+    private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "https://sportsanalyticsinc-demo.azurewebsites.net";
     }
@@ -61,17 +61,18 @@ export class AccountsService implements IAccountsService {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
-            method: "get",
-            headers: new Headers({
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
                 "Content-Type": "application/json", 
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("get", url_, options_).flatMap((response_ : any) => {
             return this.processLoggedInUser(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processLoggedInUser(<any>response_);
                 } catch (e) {
@@ -82,28 +83,36 @@ export class AccountsService implements IAccountsService {
         });
     }
 
-    protected processLoggedInUser(response: Response): Observable<UserReturnModel> {
+    protected processLoggedInUser(response: HttpResponseBase): Observable<UserReturnModel> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <UserReturnModel>jsonParse(_responseText, this.jsonParseReviver);
             return Observable.of(result200);
+            });
         } else if (status === 400) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status === 401) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status === 404) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<UserReturnModel>(<any>null);
     }
@@ -120,16 +129,17 @@ export class AccountsService implements IAccountsService {
 
         let options_ : any = {
             body: content_,
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "application/json", 
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/x-www-form-urlencoded", 
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("post", url_, options_).flatMap((response_ : any) => {
             return this.processChangePassword(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processChangePassword(<any>response_);
                 } catch (e) {
@@ -140,25 +150,33 @@ export class AccountsService implements IAccountsService {
         });
     }
 
-    protected processChangePassword(response: Response): Observable<void> {
+    protected processChangePassword(response: HttpResponseBase): Observable<void> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return Observable.of<void>(<any>null);
+            });
         } else if (status === 400) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status === 401) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status === 404) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<void>(<any>null);
     }
@@ -175,17 +193,18 @@ export class AccountsService implements IAccountsService {
 
         let options_ : any = {
             body: content_,
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "application/json", 
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/x-www-form-urlencoded", 
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("post", url_, options_).flatMap((response_ : any) => {
             return this.processForgetPassword(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processForgetPassword(<any>response_);
                 } catch (e) {
@@ -196,18 +215,23 @@ export class AccountsService implements IAccountsService {
         });
     }
 
-    protected processForgetPassword(response: Response): Observable<any> {
+    protected processForgetPassword(response: HttpResponseBase): Observable<any> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <any>jsonParse(_responseText, this.jsonParseReviver);
             return Observable.of(result200);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<any>(<any>null);
     }
@@ -224,17 +248,18 @@ export class AccountsService implements IAccountsService {
 
         let options_ : any = {
             body: content_,
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "application/json", 
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/x-www-form-urlencoded", 
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("post", url_, options_).flatMap((response_ : any) => {
             return this.processResetPassword(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processResetPassword(<any>response_);
                 } catch (e) {
@@ -245,18 +270,23 @@ export class AccountsService implements IAccountsService {
         });
     }
 
-    protected processResetPassword(response: Response): Observable<any> {
+    protected processResetPassword(response: HttpResponseBase): Observable<any> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <any>jsonParse(_responseText, this.jsonParseReviver);
             return Observable.of(result200);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<any>(<any>null);
     }
@@ -271,11 +301,11 @@ export interface IService {
 
 @Injectable()
 export class Service implements IService {
-    private http: Http;
+    private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "https://sportsanalyticsinc-demo.azurewebsites.net";
     }
@@ -291,17 +321,18 @@ export class Service implements IService {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
-            method: "get",
-            headers: new Headers({
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
                 "Content-Type": "application/json", 
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("get", url_, options_).flatMap((response_ : any) => {
             return this.processFacility(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processFacility(<any>response_);
                 } catch (e) {
@@ -312,22 +343,28 @@ export class Service implements IService {
         });
     }
 
-    protected processFacility(response: Response): Observable<FacilityViewModel> {
+    protected processFacility(response: HttpResponseBase): Observable<FacilityViewModel> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <FacilityViewModel>jsonParse(_responseText, this.jsonParseReviver);
             return Observable.of(result200);
+            });
         } else if (status === 500) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<FacilityViewModel>(<any>null);
     }
@@ -342,11 +379,11 @@ export interface IFacilityService {
 
 @Injectable()
 export class FacilityService implements IFacilityService {
-    private http: Http;
+    private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "https://sportsanalyticsinc-demo.azurewebsites.net";
     }
@@ -359,17 +396,18 @@ export class FacilityService implements IFacilityService {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
-            method: "get",
-            headers: new Headers({
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
                 "Content-Type": "application/json", 
                 "Accept": "application/json"
             })
         };
 
-        return this.http.request(url_, options_).flatMap((response_ : any) => {
+        return this.http.request("get", url_, options_).flatMap((response_ : any) => {
             return this.processAll(response_);
         }).catch((response_: any) => {
-            if (response_ instanceof Response) {
+            if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processAll(<any>response_);
                 } catch (e) {
@@ -380,22 +418,28 @@ export class FacilityService implements IFacilityService {
         });
     }
 
-    protected processAll(response: Response): Observable<FacilityViewModel[]> {
+    protected processAll(response: HttpResponseBase): Observable<FacilityViewModel[]> {
         const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <FacilityViewModel[]>jsonParse(_responseText, this.jsonParseReviver);
             return Observable.of(result200);
+            });
         } else if (status === 500) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
+            return blobToText(responseBlob).flatMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
         }
         return Observable.of<FacilityViewModel[]>(<any>null);
     }
