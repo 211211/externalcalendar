@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'simple',
+        path: '',
         loadChildren: './basic-login/basic-login.module#BasicLoginModule'
       },
       {

@@ -1,5 +1,9 @@
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ToggleFullScreenDirective} from './fullscreen/toggle-fullscreen.directive';
 import {AccordionAnchorDirective} from './accordion/accordionanchor.directive';
@@ -14,7 +18,8 @@ import {ModalBasicComponent} from './modal-basic/modal-basic.component';
 import {ModalAnimationComponent} from './modal-animation/modal-animation.component';
 import {SpinnerComponent} from './spinner/spinner.component';
 import {ClickOutsideModule} from 'ng-click-outside';
-import {DataFilterPipe} from './elements/data-filter.pipe';
+import { DataFilterPipe } from './elements/data-filter.pipe';
+import { AccountsService } from "../../services/generated-services";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -26,7 +31,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule.forRoot(),
     HttpClientModule,
     PerfectScrollbarModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NgbModule,
@@ -62,7 +70,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    AccountsService
   ],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

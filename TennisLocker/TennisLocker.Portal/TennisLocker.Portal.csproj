@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\**" />
     <Compile Remove="dist\**" />
+    <Content Remove="ClientApp\**" />
     <Content Remove="dist\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="dist\**" />
+    <None Remove="ClientApp\**" />
     <None Remove="dist\**" />
   </ItemGroup>
 
@@ -22,6 +26,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\app\services\" />
   </ItemGroup>
 
 </Project>
