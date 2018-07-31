@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 /*import {NotificationsService} from 'angular2-notifications';*/
 
+import 'rxjs/add/operator/catch';
+
 declare const AmCharts: any;
 declare var $: any;
 
@@ -80,16 +82,7 @@ export class DefaultComponent implements OnInit, AfterViewInit
 
     ngOnInit()
     {
-
-     
-
-        this.accountService.forgetPassword(<ForgetPasswordBindingModel>{
-            email: "NikitaPortalAdmin@mailinator.com",
-            deviceType: "mobile"
-        }).subscribe(
-            data => console.log(data),
-            error => console.log(error));
-
+ 
         setTimeout(() =>
         {
             const chart = AmCharts.makeChart('seo-ecommerce-barchart', {

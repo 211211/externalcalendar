@@ -21,7 +21,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { DataFilterPipe } from './elements/data-filter.pipe';
 import { AccountsService, FacilityService } from "../../services/generated-services";
 
-import { ApiHttpInterceptor } from "../../Interceptors/api.http.interceptor ";
+import { ApiHttpInterceptor } from "../../Interceptors/api.http.interceptor";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
