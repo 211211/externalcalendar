@@ -1,37 +1,41 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
     {
-        path: '',
+        path: "",
         data: {
-            title: 'Dashboard',
+            title: "Dashboard",
             status: false
         },
         children: [
             {
-                path: '',
-                loadChildren: './default/default.module#DefaultModule'
+                path: "",
+                loadChildren: "./general/general.module#GeneralBoardModule"
             },
             {
-                path: 'default',
-                loadChildren: './default/default.module#DefaultModule'
+                path: "facility/:facilityId",
+                loadChildren: "./facility/facility.module#FacilityBoardModule"
             },
             {
-                path: 'ecommerce',
-                loadChildren: './ecommerce/ecommerce.module#EcommerceModule'
+                path: "default",
+                loadChildren: "./default/default.module#DefaultModule"
             },
             {
-                path: 'crm-dashboard',
-                loadChildren: './crm-dashboard/crm-dashboard.module#CrmDashboardModule'
+                path: "ecommerce",
+                loadChildren: "./ecommerce/ecommerce.module#EcommerceModule"
             },
             {
-                path: 'analytics',
-                loadChildren: './analytics/analytics.module#AnalyticsModule'
+                path: "crm-dashboard",
+                loadChildren: "./crm-dashboard/crm-dashboard.module#CrmDashboardModule"
             },
             {
-                path: 'project',
-                loadChildren: './project/project.module#ProjectModule'
+                path: "analytics",
+                loadChildren: "./analytics/analytics.module#AnalyticsModule"
+            },
+            {
+                path: "project",
+                loadChildren: "./project/project.module#ProjectModule"
             }
         ]
     }

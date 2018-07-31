@@ -1,4 +1,22 @@
 .fa
 {
-    width:16px;
+    width: 16px;
+}
+
+.facility-picker {
+    width: 340px;
+    float:right;
+
+
+    .facility-lable {
+        color: #ffffff;
+        padding: 12px 0 8px 0;
+        width: 45px;
+    }
+
+   
+}
+
+app-facility-picker {
+    width: 100%;
 }
