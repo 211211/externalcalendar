@@ -50,8 +50,6 @@
                       
                     </ul>
 
-                  
-
                     <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
                         <!--<li (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" (click)="toggleLiveNotification()">
                           <a href="javascript:">
@@ -105,7 +103,7 @@
                             <a href="javascript:">
                                 <!--<img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">-->
                                 <span>{{CurrentUser.firstName}} {{CurrentUser.lastName}}</span>
-                                <i class="feather icon-chevron-down"></i>
+                                <span class="profile-icon"> ▼ </span>
                             </a>
                             <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification" [ngClass]="profileNotificationClass">
                                 <!--<li class="ripple">
@@ -128,8 +126,8 @@
                                     <i class="feather icon-lock"></i> Lock Screen
                                   </a>
                                 </li>  -->
-                                <li class="ripple">
-                                    <a [routerLink]="['/auth/login/simple/']" target="_blank">
+                                <li class="ripple" (click)="OnLogoutClick()">
+                                    <a>
                                         <i class="feather icon-log-out"></i> Logout
                                     </a>
                                 </li>
@@ -141,7 +139,6 @@
                     <span class="row facility-picker">
                         <app-facility-picker></app-facility-picker>
 
-                      
                     </span>
 
                 </div>

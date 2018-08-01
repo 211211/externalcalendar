@@ -299,15 +299,13 @@ export class AdminComponent implements OnInit, OnDestroy
     {
         this.setBackgroundPattern("theme1");
 
-       // this.currentFacilityService.SetFacilityId(11);
     }
 
-    //onFacilityChange(event)
-    //{
-    //    if (this.selectedOption && this.selectedOption != "") {
-    //        this.router.navigate([`dashboard/facility/${this.selectedOption}`]);
-    //    }
-    //}
+    OnLogoutClick()
+    {
+        localStorage.setItem("session", "");
+        this.router.navigate(["auth/login"]);
+    }
 
     onResize(event)
     {

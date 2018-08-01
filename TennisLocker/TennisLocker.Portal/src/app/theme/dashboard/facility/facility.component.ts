@@ -24,7 +24,6 @@ export class FacilityBoardComponent implements OnInit, AfterViewInit
         this.activatedRoute.params.subscribe(params =>
         {
             this.facilityId = params["facilityId"];
-            console.log("this.facilityId " + this.facilityId);
             this.currentFacilityService.SetFacilityId(this.facilityId);
         });
     }

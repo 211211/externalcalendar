@@ -4,9 +4,7 @@ import { Subject } from "rxjs/Subject";
 @Injectable()
 export class CurrentFacilityService
 {
-    constructor(
-
-    ) { }
+    constructor() { }
 
     public emitter = new Subject<IFacilityEvent>();
 
@@ -19,10 +17,8 @@ export class CurrentFacilityService
 
     SetFacilityId(facilityId): IFacility
     {
-        console.log(facilityId);
         return this.set({ FacilityId: facilityId });
     }
-    
 }
 
 

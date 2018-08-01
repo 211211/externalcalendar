@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms"
 import { Http, Headers, RequestOptionsArgs, RequestOptions } from "@angular/http";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { AccountsService } from "../../../../../services/generated-services";
 import { FormComponentBase } from "../../../../../bases/form.component.base";
@@ -17,10 +17,13 @@ declare var Configuration: any;
 export class BasicLoginComponent extends FormComponentBase implements OnInit
 {
 
+    baseUrl: string = "";
+
     constructor(public accountService: AccountsService,
         public fb: FormBuilder,
         public router: Router,
-        public http: Http
+        public http: Http,
+        public activatedRoute: ActivatedRoute,
     )
     {
         super(fb);
@@ -33,6 +36,14 @@ export class BasicLoginComponent extends FormComponentBase implements OnInit
     ngOnInit()
     {
         document.querySelector("body").setAttribute("themebg-pattern", "theme1");  // template related
+
+
+        this.activatedRoute.params.subscribe(params =>
+        {
+            this.baseUrl = params["redirect"] || "";
+
+        });
+
     }
 
     SendForm(form): void
@@ -53,7 +64,15 @@ export class BasicLoginComponent extends FormComponentBase implements OnInit
                 data =>
                 {
                     localStorage.setItem("session", data.json().access_token);
-                    this.router.navigate(["dashboard/default"]);
+
+                    if (this.baseUrl)
+                    {
+                        this.router.navigate([decodeURIComponent(this.baseUrl)]);
+                    } else
+                    {
+                        this.router.navigate(["dashboard"]);
+                    }
+
                 },
                 error =>
                 {

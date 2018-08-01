@@ -5,7 +5,8 @@
 
 .facility-picker {
     width: 340px;
-    float:right;
+    float: right;
+    margin-right: 5px;
 
 
     .facility-lable {
@@ -13,8 +14,16 @@
         padding: 12px 0 8px 0;
         width: 45px;
     }
+}
 
-   
+.profile-icon {
+    font-size: 9px;
+    line-height: 30px;
+    text-align: center;
+    height: 17px;
+    display: block;
+    float: right;
+    margin: 9px 10px 0;
 }
 
 app-facility-picker {

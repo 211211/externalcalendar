@@ -21,14 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="src\Interceptors\api.http.interceptor .ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="src\Interceptors\api.http.interceptor .ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 

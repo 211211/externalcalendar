@@ -7,34 +7,32 @@ import { CurrentFacilityService } from "../../../../services/current.facility.se
 
 @Component({
     selector: "app-facility-picker",
-    templateUrl: "./facility.component.html",
-    styleUrls: ["./facility.component.scss"],
- 
+    templateUrl: "./facility.picker.component.html",
+    styleUrls: ["./facility.picker.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FacilityPickerComponent implements OnInit, OnDestroy
 {
-    ngOnInit(): void {  }
+    ngOnInit(): void { }
 
-    ngOnDestroy(): void {   }
+    ngOnDestroy(): void { }
 
     simpleOption: any[] = [];
     selectedOption = "";
 
-     
-
     constructor(
         public router: Router,
-      
         facilityService: FacilityService,
         public currentFacilityService: CurrentFacilityService,
         private cdr: ChangeDetectorRef
     )
     {
         facilityService.all().subscribe(
-            data => {
+            data =>
+            {
                 this.simpleOption = [];
-                for (let i in data) {
+                for (let i in data)
+                {
                     this.simpleOption.push({
                         value: data[i].facilityId.toString(),
                         label: data[i].facilityName
@@ -44,26 +42,21 @@ export class FacilityPickerComponent implements OnInit, OnDestroy
                 this.cdr.markForCheck();
             });
 
-       
-
         this.listener = this.currentFacilityService.emitter
             .subscribe(item =>
             {
-                console.log(item);
                 switch (item.command)
                 {
                     case "set":
-
-                        if (this.selectedOption != item.facility.FacilityId) {
+                        if (this.selectedOption != item.facility.FacilityId)
+                        {
                             this.selectedOption = item.facility.FacilityId;
                         }
+                        break;
 
-                   
-                    break;
-
-                default:
-                    //this.defaultBehavior(item);
-                    break;
+                    default:
+                        //this.defaultBehavior(item);
+                        break;
                 }
 
                 this.cdr.markForCheck();
@@ -72,14 +65,15 @@ export class FacilityPickerComponent implements OnInit, OnDestroy
 
     private listener: Subscription;
 
-   
+
 
     onFacilityChange(event)
     {
-        if (this.selectedOption && this.selectedOption != "") {
+        if (this.selectedOption && this.selectedOption != "")
+        {
             this.router.navigate([`dashboard/facility/${this.selectedOption}`]);
         }
     }
 
-    
+
 }

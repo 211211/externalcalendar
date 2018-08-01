@@ -74,10 +74,9 @@ export class ApiHttpInterceptor implements HttpInterceptor
                     // The response body may contain clues as to what went wrong,
                    // console.error(`Backend returned code ${err.status}, body was: ${err.error}`);
 
-                    //console.log(err);
-
+                   
                     if (err.status == 401) {
-                       // this.router.navigate(["auth/login"]);
+                        this.router.navigate([`auth/login/url/${encodeURIComponent(window.location.pathname)}`]);
                     }
 
                 }

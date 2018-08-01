@@ -15,7 +15,7 @@ import { BreadcrumbsComponent } from './layout/admin/breadcrumbs/breadcrumbs.com
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
 import { CurrentFacilityService } from '../services/current.facility.service';
-import { FacilityPickerComponent } from './layout/admin/facility/facility.component';
+import { FacilityPickerComponent } from './layout/admin/facility/facility.picker.component';
 
 
 @NgModule({
