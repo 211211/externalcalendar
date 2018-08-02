@@ -33,9 +33,8 @@ export class ApiHttpInterceptor implements HttpInterceptor
      * @returns {Observable<HttpEvent<any>>}
      * @memberof ApiHttpInterceptor
      */
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
-    {
-
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+         
         let body = new URLSearchParams();
         if (request.body)
         {

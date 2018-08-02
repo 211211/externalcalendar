@@ -8,11 +8,11 @@ import { Http, RequestOptions, Headers } from "@angular/http";
 declare var Configuration: any;
 
 @Component({
-    selector: "app-forgot",
-    templateUrl: "./forgot.component.html",
-    styleUrls: ["./forgot.component.scss"]
+    selector: "app-reset",
+    templateUrl: "./reset.component.html",
+    styleUrls: ["./reset.component.scss"]
 })
-export class ForgotComponent extends FormComponentBase implements OnInit
+export class ResetComponent extends FormComponentBase implements OnInit
 {
     constructor(public fb: FormBuilder,
         public accountService: AccountsService,
@@ -21,6 +21,9 @@ export class ForgotComponent extends FormComponentBase implements OnInit
         super(fb);
 
         this.addFieldData("email", "", [CustomValidators.email(), CustomValidators.required()]);
+        this.addFieldData("password", "", [CustomValidators.required()]);
+        this.addFieldData("confirmPassword", "", [CustomValidators.required()]);
+        this.addFieldData("code", "", [CustomValidators.required()]);
         this.LoadForm();
 
     }

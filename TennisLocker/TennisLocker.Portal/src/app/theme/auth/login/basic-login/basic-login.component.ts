@@ -29,7 +29,7 @@ export class BasicLoginComponent extends FormComponentBase implements OnInit
         super(fb);
         this.addFieldData("email", "", [CustomValidators.email(), CustomValidators.required()]);
         this.addFieldData("password", "", [CustomValidators.required()]);
-
+        localStorage.setItem("session", "");
         this.LoadForm();
     }
 

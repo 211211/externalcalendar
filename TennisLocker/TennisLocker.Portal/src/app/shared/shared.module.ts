@@ -77,7 +77,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         },
         AccountsService,
         FacilityService,
-      
         HttpClientModule,
         { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true }
 
