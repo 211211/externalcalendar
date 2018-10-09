@@ -1,0 +1,19 @@
+.ReactModal__Overlay--after-open {
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.Modal {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  position: absolute;
+  outline: none;
+}
+.app-wrapper {
+  padding: 36px 40px 0;
+  width: 100%;
+}
