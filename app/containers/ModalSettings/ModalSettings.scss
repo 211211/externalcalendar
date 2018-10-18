@@ -1,0 +1,83 @@
+.modalSettings {
+  background: rgb(255, 255, 255);
+  flex-direction: column;
+  display: flex;
+  max-width: 300px;
+  height: 100%;
+  &_header {
+    color: #fff;
+    padding: 19px 25px 20px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3f51b5;
+  }
+  &_content {
+    padding: 28px 25px;
+    &-title {
+      font-weight: 400;
+      color: #5c5c5c;
+      font-size: 16px;
+    }
+    &_list {
+      list-style: none;
+      padding-left: 0;
+      margin: 20px -7px 10px;
+      &-item {
+        position: relative;
+        display: inline-block;
+        padding: 0 7px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        &-span {
+          height: 45px;
+          width: 45px;
+          line-height: 45px;
+          display: inline-block;
+          color: transparent!important;
+          background-color: #3f51b5;
+          position: relative;
+          &_img {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+.indigo {
+  background-color: #3f51b5;
+}
+.cyan {
+  background-color: #00bcd4;
+}
+.amber {
+  background-color: #ffc107;
+}
+.deep-orange {
+  background-color: #ff5722;
+}
+.pink {
+  background-color: #e91e63;
+}
+.blue{
+  background-color: #2196f3;
+}
+.deep-purple {
+  background-color: #673ab7;
+}
+.green {
+  background-color: #4caf50;
+}
+.dark-theme {
+  background-color: #38424B;
+}
+.activeColor {
+  padding: 15px;
+  .modalSettings_content_list-item-span_img {
+    display: block;
+  }
+}

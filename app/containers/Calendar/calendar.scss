@@ -1,9 +1,12 @@
+@import '~react-big-calendar/lib/css/react-big-calendar.css';
+@import "../../assets/scss/calendarStyle/calendar";
+@import "../../assets/scss/calendarStyle/skinsCalendar";
+@import "../../assets/scss/calendarStyle/darkStyle";
 .app-calendar {
-  @import "../../assets/scss/calendarStyle/calendar";
-  a {
-    color: #3f51b5!important;
-  }
   .rbc-toolbar button:active:focus, .app-calendar .rbc-toolbar button.rbc-active:focus {
+    outline: none;
+  }
+  .rbc-btn-group button, .rbc-btn-group button:active:focus {
     outline: none;
   }
   .rbc-active {

@@ -64,10 +64,6 @@ const config = {
         }),
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
         test: /\.(css|less)$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({

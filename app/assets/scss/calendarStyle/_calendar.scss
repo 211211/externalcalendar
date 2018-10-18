@@ -1,5 +1,5 @@
 /* Calendar Module Style */
-$app-primary: #3f51b5 !default;
+$app-primary: #3f51b5;
 // Flex
 @mixin display-flex($flex: flex, $flex-direction: row, $flex-wrap: nowrap) {
   display: #{'-webkit'}-#{$flex};
@@ -35,7 +35,6 @@ $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
-$app-primary: #3f51b5 !default;
 // Box Shadow
 @mixin box-shadow($shadow...) {
   -moz-box-shadow: $shadow;
@@ -44,6 +43,9 @@ $app-primary: #3f51b5 !default;
 }
 
 .rbc-calendar {
+  a {
+    color: $app-primary;
+  }
   .app-calendar & {
     @include display-flex(flex, column, nowrap);
     @include flex(1);
