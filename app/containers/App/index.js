@@ -100,7 +100,7 @@ class App extends React.Component {
   selectOptions = () => {
     if (this.state.eventsType !== this.props.calendar.eventFilterTypes) {
       this.setState({ eventsType: this.props.calendar.eventFilterTypes });
-      const options = [{ value: null, label: "Reset filter" }];
+      const options = [{ value: null, label: "No filter" }];
       this.props.calendar.eventFilterTypes.map(item => {
         return options.push({
           value: item.eventTypeId,
