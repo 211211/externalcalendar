@@ -111,10 +111,9 @@ class App extends React.Component {
     }
   };
   filterTypes = () => {
-    const typesFilter = this.filterEvents.filter(
+    this.filterEvents = this.filterEvents.filter(
       item => item.eventTypeId === this.state.selectedOption.value
     );
-    this.filterEvents = typesFilter;
   };
   render() {
     if (this.props.calendar.eventForMonth.length > 0) {
