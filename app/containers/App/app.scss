@@ -36,42 +36,4 @@
     z-index: 115222!important;
   }
 }
-.ModalSettings {
-  top: 50%;
-  animation-name: openModal;
-  animation-duration: 1s;
-  right: 0;
-  transform: translate(0%, -50%);
-  background-color: transparent;
-  position: absolute;
-  outline: none;
-  height: 100%;
-}
-.ReactModal__Overlay--before-close{
-  animation-name: closeModal;
-  animation-duration: 1.5s;
-}
-.app-wrapper-settings {
-  position: fixed;
-  top: 30%;
-  height: 50px;
-  width: 50px;
-  right: 0;
-  z-index: 1500;
-  background-color: #9c27b0;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  box-shadow: 1px 1px 4px rgba(0,0,0,.5);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  align-items: center;
-  &-img {
-    animation: iconAnimate 1.5s infinite linear;
-    height: 20px;
-  }
-}
-.settings_active {
-  display: none;
-}
+

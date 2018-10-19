@@ -4,7 +4,6 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import ReactModal from "react-modal";
 import PropTypes from "prop-types";
-import Select from "react-select";
 import {
   getMonthCalendar,
   getFilterEventType
@@ -14,6 +13,7 @@ import Calendar from "../Calendar";
 import ModalEventDetail from "../ModalEventDetail";
 import ModalSettings from "../ModalSettings";
 import iconSettings from "../../assets/images/settings.png";
+import SelectFilter from "../SelectFilter";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -34,9 +34,7 @@ class App extends React.Component {
       idEvent: 0,
       skins: "indigo",
       isOpenSettings: false,
-      selectedOption: { value: null, label: "No filter" },
-      eventsType: [],
-      optionsSelect: []
+      typesEvent: {}
     };
     this.filterEvents = [];
     this.searchEventDetail = {};
@@ -94,43 +92,27 @@ class App extends React.Component {
   isOpenSettings = () => {
     this.setState({ isOpenSettings: !this.state.isOpenSettings });
   };
-  handleChangeSelect = selectedOption => {
-    this.setState({ selectedOption });
-  };
-  selectOptions = () => {
-    if (this.state.eventsType !== this.props.calendar.eventFilterTypes) {
-      this.setState({ eventsType: this.props.calendar.eventFilterTypes });
-      const options = [{ value: null, label: "No filter" }];
-      this.props.calendar.eventFilterTypes.map(item => {
-        return options.push({
-          value: item.eventTypeId,
-          label: item.eventTypeName
-        });
-      });
-      this.setState({ optionsSelect: options });
-    }
+  filterTypeSelect = typesEvent => {
+    this.setState({ typesEvent });
   };
   filterTypes = () => {
     this.filterEvents = this.filterEvents.filter(
-      item => item.eventTypeId === this.state.selectedOption.value
+      item => this.state.typesEvent[item.eventTypeId] !== undefined
     );
   };
   render() {
     if (this.props.calendar.eventForMonth.length > 0) {
       this.filterMonthEvents(this.props.calendar.eventForMonth);
     }
-    if (this.state.selectedOption.value !== null) {
+    if (Object.keys(this.state.typesEvent).length > 0) {
       this.filterTypes();
     }
     return (
       <div className={`app-wrapper app-wrapper_${this.state.skins}`}>
-        <div className="app-wrapper-select" onClick={this.selectOptions}>
-          {" "}
-          <Select
-            value={this.state.selectedOption}
-            onChange={this.handleChangeSelect}
-            options={this.state.optionsSelect}
-            classNamePrefix="my-select"
+        <div>
+          <SelectFilter
+            filterTypeSelect={this.filterTypeSelect}
+            calendar={this.props.calendar}
           />
         </div>
         <Calendar
