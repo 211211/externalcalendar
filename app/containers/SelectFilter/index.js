@@ -1,11 +1,27 @@
 import React from "react";
 import Select from "react-select";
+import chroma from "chroma-js";
 import "./selectFilter.scss";
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "white" }),
-  option: (styles, { data }) => {
+  option: (styles, { data, isDisabled, isSelected, isFocused }) => {
+    const color = chroma(data.color);
     return {
       ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+          ? "#edf0f2"
+          : isFocused
+            ? color.alpha(0.1).css()
+            : null,
+      color: isDisabled
+        ? "#ccc"
+        : isSelected
+          ? chroma.contrast(color, "white") > 2
+            ? "black"
+            : "black"
+          : data.color,
       ":before": {
         background: data.color
       }
@@ -14,13 +30,17 @@ const colourStyles = {
   multiValue: (styles, { data }) => {
     return {
       ...styles,
-      backgroundColor: "#4A8AC0",
+      backgroundColor: "#edf0f2",
       paddingLeft: "5px",
       ":before": {
         background: data.color
       }
     };
   },
+  multiValueLabel: (styles, { data }) => ({
+    ...styles,
+    color: data.color
+  }),
   multiValueRemove: styles => ({
     ...styles,
     color: "black",
