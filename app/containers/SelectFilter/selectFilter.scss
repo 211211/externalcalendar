@@ -18,6 +18,9 @@
     display: flex;
     align-items: center;
   }
+  .my-select__option:active {
+    background: #bbbdbf;
+  }
   .my-select__option:before{
     content: '';
     width: 10px;
