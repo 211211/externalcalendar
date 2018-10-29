@@ -8,6 +8,7 @@ const Calendar = ({ localizer, events, onNavigate, onSelectEvent }) => (
     <BigCalendar
       events={events}
       step={60}
+      popup
       views={allViews}
       defaultDate={new Date()}
       localizer={localizer}

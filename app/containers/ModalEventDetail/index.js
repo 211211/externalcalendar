@@ -1,5 +1,6 @@
 import React from "react";
 import "./ModalEventDetail.scss";
+import helpers from "../../helpers";
 
 const ModalEventDetail = props => {
   const {
@@ -13,7 +14,10 @@ const ModalEventDetail = props => {
     venueState,
     venueStreet1,
     description,
-    website
+    website,
+    venueZip,
+    startDate,
+    endDate
   } = props.eventDetail;
   const bgColor = eventColor ? null : props.skinsColor;
   return (
@@ -29,6 +33,23 @@ const ModalEventDetail = props => {
           <span className="modalEventDetail__details">
             <span className="modalEventDetail__modify">Description</span>{" "}
             {description}
+          </span>
+        )}
+        {startDate && (
+          <span className="modalEventDetail__details">
+            <span className="modalEventDetail__modify">Date</span>
+            <div className="modalEventDetail__details-content">
+              <span className="modalEventDetail__details-content-date">
+                Start:{" "}
+              </span>
+              {helpers.refactoringDate(startDate)}
+            </div>
+            <div>
+              <span className="modalEventDetail__details-content-date">
+                End:{" "}
+              </span>
+              {helpers.refactoringDate(endDate)}
+            </div>
           </span>
         )}
         {coordinator && (
@@ -54,21 +75,27 @@ const ModalEventDetail = props => {
             Event Place and Address
           </span>
           <div>
+            {venue && <span className="modalEventDetail__place">{venue}</span>}
             {venueStreet1 && (
               <span className="modalEventDetail__place">{venueStreet1}</span>
             )}
-            {venue && <span className="modalEventDetail__place">{venue}</span>}
-            {venueCity && (
-              <span className="modalEventDetail__place">{venueCity}</span>
-            )}
-            {venueState && (
-              <span className="modalEventDetail__place">{venueState}</span>
-            )}
+            <div className="modalEventDetail__block">
+              {venueCity && (
+                <span className="modalEventDetail__place">{venueCity},</span>
+              )}
+              {venueState && (
+                <span className="modalEventDetail__place">{venueState}</span>
+              )}
+              {venueZip && (
+                <span className="modalEventDetail__place"> {venueZip}</span>
+              )}
+            </div>
           </div>
         </div>
         {website && (
           <span className="modalEventDetail__details">
-            <span className="modalEventDetail__modify">Web Site</span> {website}
+            <span className="modalEventDetail__modify">Web Site</span>
+            <a href={website}>{website}</a>
           </span>
         )}
       </div>

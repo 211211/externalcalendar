@@ -35,6 +35,19 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 0;
+    &-content-date {
+      font-size: 15px;
+      color: black;
+    }
+    &-content {
+      margin-bottom: 10px;
+    }
+  }
+  &__block {
+    display: flex;
+    .modalEventDetail__place {
+      padding-right: 5px;
+    }
   }
   &__details:last-child {
     border-bottom: none;
