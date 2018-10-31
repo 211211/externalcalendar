@@ -52,6 +52,7 @@
   animation-duration: 1.5s;
 }
 .app-wrapper-settings {
+  display: none;
   position: fixed;
   top: 30%;
   height: 50px;
@@ -63,7 +64,7 @@
   border-bottom-left-radius: 4px;
   box-shadow: 1px 1px 4px rgba(0,0,0,.5);
   color: #fff;
-  display: flex;
+  //display: flex;
   justify-content: center;
   cursor: pointer;
   align-items: center;
