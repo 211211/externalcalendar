@@ -2,30 +2,9 @@
   :root {
     --main-color: #3f51b5;
   }
-}
-.app-wrapper_blue{
-  --main-color: #2196f3;
-}
-.app-wrapper_indigo {
-  --main-color: #3f51b5;
-}
-.app-wrapper_cyan {
-  --main-color: #00bcd4;
-}
-.app-wrapper_amber {
-  --main-color: #ffc107;
-}
-.app-wrapper_pink {
-  --main-color: #e91e63;
-}
-.app-wrapper_deep-purple {
-  --main-color: #673ab7;
-}
-.app-wrapper_green {
-  --main-color: #4caf50;
-}
-.app-wrapper_deep-orange {
-  --main-color: #ff5722;
+  .rbc-show-more {
+    background-color: transparent;
+  }
 }
 .app-wrapper {
   .rbc-calendar {

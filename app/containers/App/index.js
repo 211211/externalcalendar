@@ -10,9 +10,8 @@ import {
 } from "../../redux/action/calendar";
 import "./app.scss";
 import Calendar from "../Calendar";
+import config from "../../config";
 import ModalEventDetail from "../ModalEventDetail";
-import ModalSettings from "../ModalSettings";
-import iconSettings from "../../assets/images/settings.png";
 import SelectFilter from "../SelectFilter";
 
 const localizer = BigCalendar.momentLocalizer(moment);
@@ -32,8 +31,6 @@ class App extends React.Component {
       monthEvents: new Date().getMonth(),
       isOpen: false,
       idEvent: 0,
-      skins: "indigo",
-      isOpenSettings: false,
       typesEvent: {}
     };
     this.filterEvents = [];
@@ -41,6 +38,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.paramsUser) {
+      config.token = this.props.paramsUser.token;
+      config.hecColor = this.props.paramsUser.color;
+    }
     this.props.getMonthCalendar(this.state.yearEvents, this.state.monthEvents);
     this.props.getFilterEventType();
   }
@@ -86,12 +87,6 @@ class App extends React.Component {
   isOpenModal = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
-  changeColor = color => {
-    this.setState({ skins: color });
-  };
-  isOpenSettings = () => {
-    this.setState({ isOpenSettings: !this.state.isOpenSettings });
-  };
   filterTypeSelect = typesEvent => {
     this.setState({ typesEvent });
   };
@@ -107,8 +102,16 @@ class App extends React.Component {
     if (Object.keys(this.state.typesEvent).length > 0) {
       this.filterTypes();
     }
+    const colorCalendar = this.props.paramsUser;
     return (
-      <div className={`app-wrapper app-wrapper_${this.state.skins}`}>
+      <div
+        className="app-wrapper"
+        style={{
+          "--main-color": `#${
+            colorCalendar ? colorCalendar.color : config.hecColor
+          }`
+        }}
+      >
         <div>
           <SelectFilter
             filterTypeSelect={this.filterTypeSelect}
@@ -121,31 +124,6 @@ class App extends React.Component {
           localizer={localizer}
           onSelectEvent={this.onSelectEvents}
         />
-        <span
-          className={`app-wrapper-settings ${
-            this.state.isOpenSettings ? "settings_active" : ""
-          }`}
-          onClick={this.isOpenSettings}
-        >
-          <img
-            className="app-wrapper-settings-img"
-            src={iconSettings}
-            alt="Settings"
-          />
-        </span>
-        <ReactModal
-          ariaHideApp={false}
-          closeTimeoutMS={500}
-          isOpen={this.state.isOpenSettings}
-          className="ModalSettings"
-          shouldCloseOnOverlayClick
-          onRequestClose={this.isOpenSettings}
-        >
-          <ModalSettings
-            skins={this.state.skins}
-            changeColor={this.changeColor}
-          />
-        </ReactModal>
         <ReactModal
           ariaHideApp={false}
           isOpen={this.state.isOpen}

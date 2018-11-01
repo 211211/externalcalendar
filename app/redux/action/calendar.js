@@ -7,6 +7,14 @@ import helpers from "../../helpers/index";
 import config from "../../config";
 
 export function getMonthCalendar(year, month) {
+  if (config.token === null) {
+    return dispatch => {
+      return dispatch({
+        type: GET_MONTH_CALENDAR,
+        data: []
+      });
+    };
+  }
   return dispatch => {
     return api
       .get(
@@ -22,6 +30,14 @@ export function getMonthCalendar(year, month) {
   };
 }
 export function getFilterEventType() {
+  if (config.token === null) {
+    return dispatch => {
+      return dispatch({
+        type: GET_FILTER_EVENTtYPE,
+        data: []
+      });
+    };
+  }
   return dispatch => {
     return api
       .get(`${config.hrefUrl}/lookups/eventTypes/external/${config.token}`)
