@@ -15,11 +15,14 @@ export function getMonthCalendar(year, month) {
       });
     };
   }
+
+  const url = `${config.hrefUrl}events/external/${
+    config.token
+  }/${year}/${month + 1}`;
+
   return dispatch => {
     return api
-      .get(
-        `${config.hrefUrl}events/external/${config.token}/${year}/${month + 1}`
-      )
+      .get(url)
       .then(helpers.checkStatus)
       .then(response =>
         dispatch({ type: GET_MONTH_CALENDAR, data: response.data })
@@ -38,9 +41,11 @@ export function getFilterEventType() {
       });
     };
   }
+
+  const url = `${config.hrefUrl}lookups/eventTypes/external/${config.token}`;
   return dispatch => {
     return api
-      .get(`${config.hrefUrl}/lookups/eventTypes/external/${config.token}`)
+      .get(url)
       .then(helpers.checkStatus)
       .then(response =>
         dispatch({ type: GET_FILTER_EVENTtYPE, data: response.data })
